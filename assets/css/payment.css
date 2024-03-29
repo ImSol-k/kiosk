@@ -14,9 +14,16 @@
 .title>h1{
     font-size: 50px;
     padding: 100px 0px 50px 0px;
+    margin: 0px auto;
+}
+.title>.titleLine{
+    width: 800px;
+    border: 2px solid #FED900;
+    margin: 0px auto;
 }
 
 /* 결제방법 선택 */
+
 .title .paymentBtn .mainPay button{
     background-color: #ffffff;
     border: 4px solid #FED900;
@@ -26,7 +33,7 @@
     font-size: 50px;
     font-weight: bold;
     cursor: pointer;
-    margin: 30px 50px 0px 50px;
+    margin: 80px 50px 50px 50px;
 }
 .title .paymentBtn .mainPay button:hover{
     background-color: #FED900;
@@ -45,39 +52,6 @@
     cursor: pointer;
     margin: 40px 14px 40px 14px;
 }
-.otherPay>button:first-child{
-    border: none;
-    background-color: #2919ff;
-}
-.otherPay>button:hover:first-child{
-    border: none;
-    background-color: #594dff;
-}
-.otherPay>button:nth-child(2){
-    border: none;
-    background-color: #40dd3b;
-}
-.otherPay>button:hover:nth-child(2){
-    border: none;
-    background-color: #75e771;
-}
-.otherPay>button:nth-child(3){
-    border: none;
-    background-color: #FED900;
-}
-.otherPay>button:hover:nth-child(3){
-    border: none;
-    background-color: #ffe555;
-}
-.otherPay>button:last-child{
-    border: none;
-    background-color: #9c9c9c;
-}
-.otherPay>button:hover:last-child{
-    border: none;
-    background-color: #b9b9b9;
-}
-
 /* 결제여부 */
 .title .nextBtn>button{
     background-color: #FED900;
@@ -163,3 +137,35 @@
 .pointBtn button:hover:first-child{
     background-color: #ff6d6d;
 }
+
+/* 카드 모달창 */
+.card-modal{
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.466);
+}
+.card-modal .cord-content{
+    width: 800px;
+    height: 600px;
+    border: 1px solid #888888;
+    background-color: #ffffff;
+    padding: 0px 20px 20px 20px;
+    margin: 100px auto;
+}
+
+
+
+
+
+
+
+
+
+
+
