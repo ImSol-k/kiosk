@@ -10,6 +10,7 @@
  */
 .title{
     text-align: center;
+    margin: 0px auto;
 }
 .title>h1{
     font-size: 50px;
@@ -23,8 +24,14 @@
 }
 
 /* 결제방법 선택 */
-
-.title .paymentBtn .mainPay button{
+/**/
+.title .paymentBtn .mainPay{
+    margin: 0px auto;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+}
+.title .paymentBtn .mainPay>button{
     background-color: #ffffff;
     border: 4px solid #FED900;
     width: 400px;
@@ -33,50 +40,25 @@
     font-size: 50px;
     font-weight: bold;
     cursor: pointer;
-    margin: 80px 50px 50px 50px;
+    margin: 50px 30px 0px 30px;
 }
 .title .paymentBtn .mainPay button:hover{
     background-color: #FED900;
     color: #fff;
 }
-.title .paymentBtn .mainPay img{
+.title .paymentBtn .mainPay>button>img{
     width: 100px;
 }
-.title .paymentBtn .otherPay button{
-    width: 200px;
-    height: 80px;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-    cursor: pointer;
-    margin: 40px 14px 40px 14px;
+.title .paymentBtn .mainPay>button:nth-child(3)>img{
+    width: 70px;
 }
-/* 결제여부 */
-.title .nextBtn>button{
-    background-color: #FED900;
-    border: none;
-    width: 220px;
-    height: 100px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 30px;
-    margin: 120px 20px 0px 20px;
+.title .paymentBtn .mainPay>button:nth-child(4)>img{
+    width: 70px;
 }
-.title .nextBtn>button:first-child{
-    background-color: #ff4444;
-    width: 220px;
-    height: 100px;
-    border-radius: 30px;
+.title .paymentBtn .mainPay>button:nth-child(4){
+    border: 4px solid #FC5230;
 }
-.title .nextBtn>button:hover{
-    background-color: #31160B;
-    color: #fff;
-}
-.title .nextBtn>button:hover:first-child{
-    background-color: #ff6d6d;
-}
+
 /**************************
  * point css 
  */
@@ -137,35 +119,3 @@
 .pointBtn button:hover:first-child{
     background-color: #ff6d6d;
 }
-
-/* 카드 모달창 */
-.card-modal{
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 999;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.466);
-}
-.card-modal .cord-content{
-    width: 800px;
-    height: 600px;
-    border: 1px solid #888888;
-    background-color: #ffffff;
-    padding: 0px 20px 20px 20px;
-    margin: 100px auto;
-}
-
-
-
-
-
-
-
-
-
-
-
