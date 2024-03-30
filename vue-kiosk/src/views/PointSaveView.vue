@@ -22,12 +22,22 @@
                 </div><!--hpInput-->
 
                 <div class="pointBtn">
-                    <button>적립취소</button>
+                    <button v-on:click="noPoint">적립취소</button>
                     <button type="submit">적립</button>
                 </div>
             </form>
 
         </div><!--wrap-->
+
+        <div class="no-point-modal" v-show="showModal">
+            <div class="modal-content">
+                <h2>적립을 취소하시겠습니까?</h2>
+                <div class="pointBtn">
+                    <button>취소</button>
+                    <button>확인</button>
+                </div>
+            </div>
+        </div><!--no-point-modal-->
     </div>
 </template>
 <script>
@@ -39,6 +49,7 @@ export default {
     components: {},
     data() {
         return {
+            showModal: false,
             temp: "",   //화면에 보여지는 핸드폰번호
             userVo: {
                 hp: ""  //데이터로 넘길 핸드폰번호
@@ -46,6 +57,10 @@ export default {
         };
     },
     methods: {
+        noPoint(){
+            console.log("적립취소");
+            this.showModal = true;
+        },
         hpInput(no) {
             console.log('번호클릭' + no);
 
@@ -59,7 +74,7 @@ export default {
                 } else {
                     this.temp = this.temp.slice(0, -1);
                 }
-                
+
             } else {
                 //저장된 숫자의 길이가 핸드폰번호길이(11)보다 짧으면저장
                 if (this.temp.length < 13) {
@@ -70,9 +85,6 @@ export default {
                     this.temp += no;
                 }
             }
-
-
-
 
             //넘길데이터에는 하이픈 빼주기
             this.userVo.hp = this.temp.replace(/-/g, "");
