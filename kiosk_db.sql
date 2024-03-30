@@ -1,6 +1,5 @@
 use mysql;
 
-drop user 'kiosk'@'%';
 create user 'kiosk'@'%' identified by 'kiosk';
 grant all privileges on kiosk_db.* to 'kiosk'@'%' ;
 

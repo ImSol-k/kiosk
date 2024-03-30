@@ -5,13 +5,14 @@
                 <h1>포인트 적립</h1>
             </div><!--title-->
 
-            <form action="">
+            <form v-on:submit.prevent="savePoint" action="">
                 <div class="hpInput">
                     <h2>핸드폰번호를 입력해주세요</h2>
-                    <p class="showHp">{{ temp }}</p>
+                    <p class="showHp">{{ userVo.hp }}</p>
                     <div class="hpBtn">
-                        <span v-for="(num, i) in 9" :key="i">
+                        <span v-for="(num, i) in 9" :key="i"><!--숫자패드-->
                             <button type="button" v-on:click="hpInput(num)">{{ num }}</button>
+                            <!-- 3의배수마다 개행-->
                             <span v-if="num % 3 == 0"><br></span>
                         </span>
                         <div class="hplastBtn">
@@ -29,7 +30,7 @@
 
         </div><!--wrap-->
 
-        <div class="no-point-modal" v-show="showModal">
+        <div class="point-modal" v-show="showModal">
             <div class="modal-content">
                 <h2>적립을 취소하시겠습니까?</h2>
                 <div class="pointBtn">
@@ -38,11 +39,14 @@
                 </div>
             </div>
         </div><!--no-point-modal-->
+
+
     </div>
 </template>
 <script>
 import '@/assets/css/attention.css'
 import '@/assets/css/payment.css'
+import axios from 'axios';
 
 export default {
     name: "PointSaveView",
@@ -50,14 +54,14 @@ export default {
     data() {
         return {
             showModal: false,
-            temp: "",   //화면에 보여지는 핸드폰번호
             userVo: {
-                hp: ""  //데이터로 넘길 핸드폰번호
+                hp: "",
+                point: ""
             }
         };
     },
     methods: {
-        noPoint(){
+        noPoint() {
             console.log("적립취소");
             this.showModal = true;
         },
@@ -66,33 +70,56 @@ export default {
 
             //입력받은수가 -1이면 삭제
             if (no == -1) {
-                let del = this.temp.charAt(this.temp.length - 2);
+                let del = this.hp.charAt(this.userVo.hp.length - 2);
                 console.log("삭제" + del);
 
+                //지울 숫자 앞에 하이픈이 붙어있으면 하이픈까지삭제)
                 if (del == "-") {
-                    this.temp = this.temp.slice(0, -2);
-                } else {
-                    this.temp = this.temp.slice(0, -1);
+                    this.userVo.hp = this.userVo.hp.slice(0, -2);
+                } else { //없으면 숫자만 삭제
+                    this.userVo.hp = this.userVo.hp.slice(0, -1);
                 }
 
             } else {
                 //저장된 숫자의 길이가 핸드폰번호길이(11)보다 짧으면저장
-                if (this.temp.length < 13) {
+                if (this.userVo.hp.length < 13) {
                     //하이픈 추가
-                    if (this.temp.length === 3 || this.temp.length === 8) {
-                        this.temp += "-";
+                    if (this.userVo.hp.length === 3 || this.userVo.hp.length === 8) {
+                        this.userVo.hp += "-";
                     }
-                    this.temp += no;
+                    this.userVo.hp += no;
                 }
             }
 
             //넘길데이터에는 하이픈 빼주기
-            this.userVo.hp = this.temp.replace(/-/g, "");
-            console.log("temp: " + this.temp);
-            console.log("hp: " + this.userVo.hp);
+            console.log("temp: " + this.userVo.hp);
+        },
+        savePoint() {
+            console.log("포인트 적립");
+            if (this.userVo.hp.length != 13) {
+                console.log("길이가 짧습니다");
+            } else {
+                //this.userVo.hp = this.userVo.hp.replace(/-/g, "");
+                this.userVo.point = 10;
+                console.log("포인트 적립: " + this.userVo.hp + "("+this.userVo.point+")");
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:9000/api/kiosk/savepoint', //SpringBoot주소
+                    headers: { "Content-Type": "application/json; charset=utf-8" },
+                    data: this.userVo,
+                    responseType: 'json'
+                }).then(response => {
+                    console.log(response); //수신데이터
+
+                }).catch(error => {
+                    console.log(error);
+                });
+            }
         }
     },
-    created() { }
+    created() {
+        console.log(this.showModal);
+    }
 };
 </script>
 
