@@ -1,22 +1,13 @@
-<!DOCTYPE html>
-<html>
+<template>
+    <div>
+        <div class="wrap">
 
-<head>
-    <meta charset="UTF-8">
-    <title>payment</title>
-    <link rel="stylesheet" href="../assets/css/attention.css">
-    <link rel="stylesheet" href="../assets/css/payment.css">
-</head>
+            <div class="title">
+                <h1>결제 방식을 선택해 주세요</h1>
+                <div class="titleLine"></div>
 
-<body>
-    <div class="wrap">
-
-        <div class="title">
-            <h1>결제 방식을 선택해 주세요</h1>
-            <div class="titleLine"></div>
-
-            <div class="paymentBtn">
-                <div class="mainPay">
+                <div class="paymentBtn">
+                    <div class="mainPay">
                         <button>
                             <img src="../assets/img/payment/card.png">
                             <p>카드/삼성페이</p>
@@ -35,15 +26,27 @@
                             <img src="../assets/img/pay/close.png" alt="">
                             <p>결제취소</p>
                         </button>
-                </div><!--mainPay-->
+                    </div><!--mainPay-->
 
-            </div>
-        </div><!--title-->
+                </div>
+            </div><!--title-->
 
-    </div><!--wrap-->
+        </div><!--wrap-->
+    </div>
+</template>
+<script>
+import '@/assets/css/attention.css'
+import '@/assets/css/payment.css'
 
+export default {
+    name: "PaymentView",
+    components: {},
+    data() {
+        return {};
+    },
+    methods: {},
+    created() { }
+};
+</script>
 
-
-</body>
-
-</html>
+<style></style>
