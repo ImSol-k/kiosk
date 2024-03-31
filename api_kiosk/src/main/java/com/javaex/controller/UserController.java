@@ -22,7 +22,7 @@ public class UserController {
 		System.out.println("UserController.point()");
 		userService.exeSave(userVo);
 		//System.out.println(userVo);
-		return null;
+		return JsonResult.success(userVo);
 	}
 
 }

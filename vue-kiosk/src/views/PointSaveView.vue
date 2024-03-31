@@ -23,7 +23,7 @@
                 </div><!--hpInput-->
 
                 <div class="pointBtn">
-                    <button v-on:click="noPoint">적립취소</button>
+                    <button v-on:click.prevent="noPoint">적립취소</button>
                     <button type="submit">적립</button>
                 </div>
             </form>
@@ -34,8 +34,8 @@
             <div class="modal-content">
                 <h2>적립을 취소하시겠습니까?</h2>
                 <div class="pointBtn">
-                    <button>취소</button>
-                    <button>확인</button>
+                    <button v-on:click.prevent="closeModal(false)">취소</button>
+                    <button v-on:click.prevent="closeModal(true)">확인</button>
                 </div>
             </div>
         </div><!--no-point-modal-->
@@ -57,20 +57,30 @@ export default {
             userVo: {
                 hp: "",
                 point: ""
-            }
+            },
+            noSave: true
         };
     },
     methods: {
-        noPoint() {
+        noPoint() { //적립취소
             console.log("적립취소");
             this.showModal = true;
+        },
+        closeModal(check){  //적립취소-확인
+            console.log("모달창닫기");
+            this.showModal = false;//모달창 닫아주고
+            
+            //chak가 true면 적립취소
+            if(check == true){  
+                this.noSave = false;    //적립취소확인
+            } 
         },
         hpInput(no) {
             console.log('번호클릭' + no);
 
             //입력받은수가 -1이면 삭제
             if (no == -1) {
-                let del = this.hp.charAt(this.userVo.hp.length - 2);
+                let del = this.userVo.hp.charAt(this.userVo.hp.length - 2);
                 console.log("삭제" + del);
 
                 //지울 숫자 앞에 하이픈이 붙어있으면 하이픈까지삭제)
@@ -96,11 +106,14 @@ export default {
         },
         savePoint() {
             console.log("포인트 적립");
-            if (this.userVo.hp.length != 13) {
+            
+            this.userVo.point = 5;
+            
+            if (this.noSave == true && this.userVo.hp.length != 13) {
                 console.log("길이가 짧습니다");
             } else {
                 //this.userVo.hp = this.userVo.hp.replace(/-/g, "");
-                this.userVo.point = 10;
+                
                 console.log("포인트 적립: " + this.userVo.hp + "("+this.userVo.point+")");
                 axios({
                     method: 'post',
@@ -109,8 +122,10 @@ export default {
                     data: this.userVo,
                     responseType: 'json'
                 }).then(response => {
-                    console.log(response); //수신데이터
-
+                    console.log(response.data); //수신데이터
+                    if(response.data.result == "success"){
+                        console.log("적립완료");
+                    }
                 }).catch(error => {
                     console.log(error);
                 });
