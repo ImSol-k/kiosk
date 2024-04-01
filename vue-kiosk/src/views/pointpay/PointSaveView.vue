@@ -1,6 +1,9 @@
 <template>
     <div>
         <div class="wrap">
+
+            <AppHeader/>
+
             <div class="title">
                 <h1>포인트 적립</h1>
             </div><!--title-->
@@ -23,10 +26,12 @@
                 </div><!--hpInput-->
 
                 <div class="pointBtn">
-                    <button v-on:click.prevent="noPoint">적립취소</button>
+                    <button v-on:click.prevent="noPoint(-1)">적립취소</button>
                     <button type="submit">적립</button>
                 </div>
             </form>
+
+            <div class="footer"></div>
 
         </div><!--wrap-->
 
@@ -40,20 +45,33 @@
             </div>
         </div><!--no-point-modal-->
 
+        <div class="point-modal" v-show="showSave">
+            <div class="modal-content">
+                <h2>적립하시겠습니까?</h2>
+                <div class="pointBtn">
+                    <button v-on:click.prevent="closeModal(false)">취소</button>
+                    <button v-on:click.prevent="closeModal(true)">확인</button>
+                </div>
+            </div>
+        </div>
 
     </div>
 </template>
 <script>
-import '@/assets/css/attention.css'
-import '@/assets/css/payment.css'
+import '../../assets/css/attention.css'
+import '../../assets/css/payment.css'
+import AppHeader from '../components/AppHeader.vue'
 import axios from 'axios';
 
 export default {
     name: "PointSaveView",
-    components: {},
+    components: {
+        AppHeader
+    },
     data() {
         return {
             showModal: false,
+            showSave: false,
             userVo: {
                 hp: "",
                 point: ""
@@ -62,18 +80,22 @@ export default {
         };
     },
     methods: {
-        noPoint() { //적립취소
-            console.log("적립취소");
-            this.showModal = true;
+        noPoint(no) { //적립취소
+            console.log("적립안함");
+            if(no == -1){
+                this.showModal = true;
+            } else {
+                this.showSave = true;
+            }
         },
-        closeModal(check){  //적립취소-확인
+        closeModal(check) {  //적립취소-확인
             console.log("모달창닫기");
             this.showModal = false;//모달창 닫아주고
-            
+
             //chak가 true면 적립취소
-            if(check == true){  
+            if (check == true) {
                 this.noSave = false;    //적립취소확인
-            } 
+            }
         },
         hpInput(no) {
             console.log('번호클릭' + no);
@@ -106,15 +128,14 @@ export default {
         },
         savePoint() {
             console.log("포인트 적립");
-            
+
             this.userVo.point = 5;
-            
+
             if (this.noSave == true && this.userVo.hp.length != 13) {
                 console.log("길이가 짧습니다");
             } else {
-                //this.userVo.hp = this.userVo.hp.replace(/-/g, "");
-                
-                console.log("포인트 적립: " + this.userVo.hp + "("+this.userVo.point+")");
+
+                console.log("포인트 적립: " + this.userVo.hp + "(" + this.userVo.point + ")");
                 axios({
                     method: 'post',
                     url: 'http://localhost:9000/api/kiosk/savepoint', //SpringBoot주소
@@ -123,7 +144,7 @@ export default {
                     responseType: 'json'
                 }).then(response => {
                     console.log(response.data); //수신데이터
-                    if(response.data.result == "success"){
+                    if (response.data.result == "success") {
                         console.log("적립완료");
                     }
                 }).catch(error => {
@@ -133,7 +154,6 @@ export default {
         }
     },
     created() {
-        console.log(this.showModal);
     }
 };
 </script>

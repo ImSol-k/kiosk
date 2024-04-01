@@ -26,7 +26,7 @@ public class UserService {
 		} else { //유저정보 없음
 			//유저 추가
 			userDao.userInsert(userVo);
-			count = 0;
+			count = userDao.userUpdate(userVo);
 		}
 		return count;
 	}

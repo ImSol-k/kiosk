@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import PaymentView from '../views/PaymentView.vue'
-import PointSaveView from '../views/PointSaveView.vue'
+import PaymentView from '../views/pointpay/PaymentView.vue'
+import PointSaveView from '../views/pointpay/PointSaveView.vue'
+import ReceiptView from '../views/pointpay/ReceiptView.vue'
 
 const routes = [
   {
@@ -10,8 +11,13 @@ const routes = [
   },
   {
     path: '/pointsave',
-    name: 'pointsate',
+    name: 'pointsave',
     component: PointSaveView
+  },
+  {
+    path: '/',
+    name: 'receipt',
+    component: ReceiptView
   }
 ]
 
