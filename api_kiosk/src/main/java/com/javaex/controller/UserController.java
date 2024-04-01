@@ -20,9 +20,8 @@ public class UserController {
 	@PostMapping("savepoint")
 	public JsonResult point(@RequestBody UserVo userVo) {
 		System.out.println("UserController.point()");
-		userService.exeSave(userVo);
-		//System.out.println(userVo);
-		return JsonResult.success(userVo);
+		UserVo uVo =  userService.exeSave(userVo);
+		return JsonResult.success(uVo);
 	}
 
 }

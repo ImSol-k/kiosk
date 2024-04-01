@@ -130,7 +130,7 @@ export default {
             console.log("포인트 적립");
 
             this.userVo.point = 5;
-
+            
             if (this.noSave == true && this.userVo.hp.length != 13) {
                 console.log("길이가 짧습니다");
             } else {
@@ -146,6 +146,9 @@ export default {
                     console.log(response.data); //수신데이터
                     if (response.data.result == "success") {
                         console.log("적립완료");
+                        //store에 보유포인트 저장
+                        this.$store.commit("setPoint", response.data.apiData.point);
+                        //console.log(this.$store.state.point);
                     }
                 }).catch(error => {
                     console.log(error);

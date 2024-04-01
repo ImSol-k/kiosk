@@ -4,7 +4,8 @@ import createPersistedState from 'vuex-persistedstate';
 export default createStore({
     state() {
         return {
-            paymethod: ""   //결제방식
+            paymethod: "",   //결제방식
+            point: ""
         };
     },
 
@@ -12,6 +13,9 @@ export default createStore({
     mutations: {
         setPay(state, pay){
             state.paymethod = pay
+        },
+        setPoint(state, point){
+            state.point = point
         }
     },
     //vuex-persistedstate

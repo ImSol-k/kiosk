@@ -27,6 +27,14 @@
 	]]>
 	</insert>
 	
+	<!-- getPoint -->
+	<select id="getPoint" parameterType="string" resultType="userVo">
+	<![CDATA[
+		select no, point 
+		from users
+		where hp = #{hp}
+	]]>
+	</select>
 	
 	
 </mapper>
