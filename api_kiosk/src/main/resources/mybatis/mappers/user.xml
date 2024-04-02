@@ -30,7 +30,7 @@
 	<!-- getPoint -->
 	<select id="getPoint" parameterType="string" resultType="userVo">
 	<![CDATA[
-		select no, point 
+		select no, point, right(hp, 4)hp
 		from users
 		where hp = #{hp}
 	]]>

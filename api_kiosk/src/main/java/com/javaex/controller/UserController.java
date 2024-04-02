@@ -11,7 +11,7 @@ import com.javaex.util.JsonResult;
 import com.javaex.vo.UserVo;
 
 @RestController
-@RequestMapping("api/kiosk")
+@RequestMapping("attention/kiosk")
 public class UserController {
 	
 	@Autowired

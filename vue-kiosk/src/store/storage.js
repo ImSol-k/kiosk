@@ -5,7 +5,11 @@ export default createStore({
     state() {
         return {
             paymethod: "",   //결제방식
-            point: ""
+            userVo:{
+                point: "",
+                hp: ""    
+            },
+            savePoint: ""
         };
     },
 
@@ -14,8 +18,11 @@ export default createStore({
         setPay(state, pay){
             state.paymethod = pay
         },
-        setPoint(state, point){
-            state.point = point
+        setUserVo(state, UserVo){
+            state.userVo = UserVo
+        },
+        setSavePoint(state, savePoint){
+            state.savePoint = savePoint
         }
     },
     //vuex-persistedstate

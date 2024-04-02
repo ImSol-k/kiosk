@@ -2,7 +2,7 @@
     <div>
         <div class="wrap">
 
-            <AppHeader/>
+            <AppHeader />
 
             <div class="title">
                 <h1>포인트 적립</h1>
@@ -11,6 +11,7 @@
             <form v-on:submit.prevent="savePoint" action="">
                 <div class="hpInput">
                     <h2>핸드폰번호를 입력해주세요</h2>
+                    <p>결제금액의 1% 적립됩니다</p>
                     <p class="showHp">{{ userVo.hp }}</p>
                     <div class="hpBtn">
                         <span v-for="(num, i) in 9" :key="i"><!--숫자패드-->
@@ -40,17 +41,16 @@
                 <h2>적립을 취소하시겠습니까?</h2>
                 <div class="pointBtn">
                     <button v-on:click.prevent="closeModal(false)">취소</button>
-                    <button v-on:click.prevent="closeModal(true)">확인</button>
+                    <button v-on:click.prevent="nextPage(true)">확인</button>
                 </div>
             </div>
         </div><!--no-point-modal-->
 
         <div class="point-modal" v-show="showSave">
             <div class="modal-content">
-                <h2>적립하시겠습니까?</h2>
-                <div class="pointBtn">
-                    <button v-on:click.prevent="closeModal(false)">취소</button>
-                    <button v-on:click.prevent="closeModal(true)">확인</button>
+                <h2>{{ userVo.point }}포인트 적립되었습니다</h2>
+                <div class="pointOkBtn">
+                    <button v-on:click.prevent="nextPage(true)">확인</button>
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@ export default {
     methods: {
         noPoint(no) { //적립취소
             console.log("적립안함");
-            if(no == -1){
+            if (no == -1) {
                 this.showModal = true;
             } else {
                 this.showSave = true;
@@ -91,11 +91,30 @@ export default {
         closeModal(check) {  //적립취소-확인
             console.log("모달창닫기");
             this.showModal = false;//모달창 닫아주고
+            this.showSave = false;
 
             //chak가 true면 적립취소
             if (check == true) {
                 this.noSave = false;    //적립취소확인
             }
+        },
+        nextPage() {
+            console.log("다음페이지");
+            this.showModal = false;//모달창 닫아주고
+            this.showSave = false;
+
+            if(this.$store.state.pay == "card"){
+                console.log("카드결제");
+                this.$route.push("/pays/card");
+            } else if(this.$store.state.pay == "cupon"){
+                console.log("모바일쿠폰결제");
+                this.$route.push("/pays/mobile");
+            } else if(this.$store.state.pay == "pay"){
+                console.log("페이결제");
+                this.$route.push("/pays/others");
+            }
+
+
         },
         hpInput(no) {
             console.log('번호클릭' + no);
@@ -128,17 +147,17 @@ export default {
         },
         savePoint() {
             console.log("포인트 적립");
-
-            this.userVo.point = 5;
-            
+            let pay = 4000;
+            this.userVo.point = pay * 0.01;
+            this.$store.commit("setSavePoint", this.userVo.point);
             if (this.noSave == true && this.userVo.hp.length != 13) {
                 console.log("길이가 짧습니다");
             } else {
-
+                this.showSave = true;
                 console.log("포인트 적립: " + this.userVo.hp + "(" + this.userVo.point + ")");
                 axios({
                     method: 'post',
-                    url: 'http://localhost:9000/api/kiosk/savepoint', //SpringBoot주소
+                    url: 'http://localhost:9000/attention/kiosk/savepoint', //SpringBoot주소
                     headers: { "Content-Type": "application/json; charset=utf-8" },
                     data: this.userVo,
                     responseType: 'json'
@@ -147,8 +166,8 @@ export default {
                     if (response.data.result == "success") {
                         console.log("적립완료");
                         //store에 보유포인트 저장
-                        this.$store.commit("setPoint", response.data.apiData.point);
-                        //console.log(this.$store.state.point);
+                        this.$store.commit("setUserVo", response.data.apiData);
+                        console.log(this.$store.state.userVo);
                     }
                 }).catch(error => {
                     console.log(error);
