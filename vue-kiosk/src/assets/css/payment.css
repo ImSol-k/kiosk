@@ -1,28 +1,4 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    list-style: none;
-    text-decoration: none;
-}
 
-.header{
-    width: 805px;
-    height: 100px;
-    background-color: #31160B;
-}
-.header>img{
-    width: 270px;
-    margin: 0px auto;
-    display: block;
-    padding-top: 8px;
-}
-
-.footer{
-    width: 805px;
-    height: 3 0px;
-    background-color: #31160B;
-}
 /**************************
  * payment css 
  */

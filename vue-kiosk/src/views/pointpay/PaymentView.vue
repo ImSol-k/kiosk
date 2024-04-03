@@ -56,10 +56,17 @@ export default {
             console.log("결제방식: " + pay);
             this.$router.push("/pointsave");
             this.$store.commit("setPay", pay);
-            console.log(this.$store.state.paymethod);
         }
     },
-    created() { }
+    created() { 
+        let list = [
+                {no: 1, name: "아메리카노", count: 2, price: "3000"},
+                {no: 2, name: "라떼", count: 1, price: "3500"}
+            ]
+            
+        this.$store.commit("setCartList", list);
+        this.$store.commit("setTotal", 4000);
+    }
 };
 </script>
 

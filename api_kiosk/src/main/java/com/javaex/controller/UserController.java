@@ -21,6 +21,8 @@ public class UserController {
 	public JsonResult point(@RequestBody UserVo userVo) {
 		System.out.println("UserController.point()");
 		UserVo uVo =  userService.exeSave(userVo);
+		//System.out.println(uVo);
+		System.out.println(uVo);
 		return JsonResult.success(uVo);
 	}
 

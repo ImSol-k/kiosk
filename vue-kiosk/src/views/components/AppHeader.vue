@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <img src="../../assets/img/rogo/attention.png" alt="">
+        <img src="../../assets/img/rogo/1.png" alt="">
     </div>
 </template>
 <script>

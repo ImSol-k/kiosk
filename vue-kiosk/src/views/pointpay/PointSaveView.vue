@@ -41,7 +41,7 @@
                 <h2>적립을 취소하시겠습니까?</h2>
                 <div class="pointBtn">
                     <button v-on:click.prevent="closeModal(false)">취소</button>
-                    <button v-on:click.prevent="nextPage(true)">확인</button>
+                    <button v-on:click.prevent="nextPage()">확인</button>
                 </div>
             </div>
         </div><!--no-point-modal-->
@@ -50,7 +50,7 @@
             <div class="modal-content">
                 <h2>{{ userVo.point }}포인트 적립되었습니다</h2>
                 <div class="pointOkBtn">
-                    <button v-on:click.prevent="nextPage(true)">확인</button>
+                    <button v-on:click.prevent="nextPage()">확인</button>
                 </div>
             </div>
         </div>
@@ -61,7 +61,6 @@
 import '../../assets/css/attention.css'
 import '../../assets/css/payment.css'
 import AppHeader from '../components/AppHeader.vue'
-import axios from 'axios';
 
 export default {
     name: "PointSaveView",
@@ -76,7 +75,8 @@ export default {
                 hp: "",
                 point: ""
             },
-            noSave: true
+            noSave: true,
+            isPoint: false
         };
     },
     methods: {
@@ -90,7 +90,7 @@ export default {
         },
         closeModal(check) {  //적립취소-확인
             console.log("모달창닫기");
-            this.showModal = false;//모달창 닫아주고
+            this.showModal = false;//모달창 닫기
             this.showSave = false;
 
             //chak가 true면 적립취소
@@ -100,18 +100,19 @@ export default {
         },
         nextPage() {
             console.log("다음페이지");
-            this.showModal = false;//모달창 닫아주고
+            this.showModal = false;//모달창 닫기
             this.showSave = false;
-
-            if(this.$store.state.pay == "card"){
+            this.$store.commit("setUserVo", this.userVo);
+            console.log(this.$store.state.paymethod);
+            if(this.$store.state.paymethod == "card"){
                 console.log("카드결제");
-                this.$route.push("/pays/card");
-            } else if(this.$store.state.pay == "cupon"){
+                this.$router.push("/pays/card");
+            } else if(this.$store.state.paymethod == "cupon"){
                 console.log("모바일쿠폰결제");
-                this.$route.push("/pays/mobile");
-            } else if(this.$store.state.pay == "pay"){
+                this.$router.push("/pays/mobile");
+            } else if(this.$store.state.paymethod == "pay"){
                 console.log("페이결제");
-                this.$route.push("/pays/others");
+                this.$router.push("/pays/others");
             }
 
 
@@ -155,23 +156,7 @@ export default {
             } else {
                 this.showSave = true;
                 console.log("포인트 적립: " + this.userVo.hp + "(" + this.userVo.point + ")");
-                axios({
-                    method: 'post',
-                    url: 'http://localhost:9000/attention/kiosk/savepoint', //SpringBoot주소
-                    headers: { "Content-Type": "application/json; charset=utf-8" },
-                    data: this.userVo,
-                    responseType: 'json'
-                }).then(response => {
-                    console.log(response.data); //수신데이터
-                    if (response.data.result == "success") {
-                        console.log("적립완료");
-                        //store에 보유포인트 저장
-                        this.$store.commit("setUserVo", response.data.apiData);
-                        console.log(this.$store.state.userVo);
-                    }
-                }).catch(error => {
-                    console.log(error);
-                });
+
             }
         }
     },

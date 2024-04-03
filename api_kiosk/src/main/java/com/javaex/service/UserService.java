@@ -15,7 +15,6 @@ public class UserService {
 	public UserVo exeSave(UserVo userVo) {
 		System.out.println("UserService.exeSave()");
 		UserVo uVo = userDao.userSelect(userVo);
-		
 		//유저정보 있음
 		if(uVo != null) {
 			//유저 번호불러오기

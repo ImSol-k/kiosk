@@ -14,7 +14,7 @@ public class UserDao {
 	
 	//유저정보 확인
 	public UserVo userSelect(UserVo userVo) {
-		System.out.println("UserDao.PointUpdate()");
+		System.out.println("UserDao.userSelect()");
 		UserVo uVo = sqlSession.selectOne("user.selectUser", userVo);
 		//System.out.println(uVo);
 		return uVo;
@@ -38,6 +38,7 @@ public class UserDao {
 	public UserVo pointSelect(String hp) {
 		System.out.println("UserDao.pointSelect()");
 		UserVo userVo = sqlSession.selectOne("user.getPoint", hp);
+		//System.out.println(hp);
 		return userVo;
 	}
 
