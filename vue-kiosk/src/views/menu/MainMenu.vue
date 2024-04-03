@@ -114,9 +114,9 @@
 </template>
 <script>
 import axios from 'axios'
-import '@/assets/css/mainmenu.css';
-import '@/assets/css/menuheader.css';
-import '@/assets/css/scrollbar.module.css';
+import '@/assets/css/menu/mainmenu.css';
+import '@/assets/css/menu/menuheader.css';
+import '@/assets/css/main/scrollbar.module.css';
 
 export default {
     name: "MainMenu",

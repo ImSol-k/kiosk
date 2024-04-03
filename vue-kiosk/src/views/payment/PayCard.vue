@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import '@/assets/css/attention.css';
-import '@/assets/css/payend.css';
+import '@/assets/css/main/attention.css';
+import '@/assets/css/payment/payend.css';
 import AppPayHeader from '@/components/AppPayHeader.vue'
 
 export default{
@@ -86,7 +86,7 @@ export default{
 		},		
 		timeStop() {  
             clearInterval(this.polling);
-            this.$router.push('/payment'); // 시간이 0 되면 자동으로 메인페이지로 감
+            //this.$router.push('/payment'); // 시간이 0 되면 자동으로 메인페이지로 감
 		}
         /////////////////////////// 타이머끝 //////////////////////////////////
     },

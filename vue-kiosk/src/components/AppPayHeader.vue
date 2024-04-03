@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import '@/assets/css/payend.css'
+import '@/assets/css/payment/payend.css'
 
 export default{
     name : "AppPayHeader",

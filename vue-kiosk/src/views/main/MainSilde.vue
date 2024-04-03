@@ -37,8 +37,8 @@ import slide02 from "@/assets/images/slide02.jpg";
 import slide03 from "@/assets/images/slide03.jpg";
 import slide04 from "@/assets/images/slide04.jpg";
 import "vue3-carousel/dist/carousel.css";
-import '@/assets/css/attention.css'
-import '@/assets/css/mainpage.css'
+import '@/assets/css/main/attention.css'
+import '@/assets/css/main/mainpage.css'
 
 export default defineComponent({
 	name: "MainSlide",

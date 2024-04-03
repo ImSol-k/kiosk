@@ -40,8 +40,8 @@
             <div class="modal-content">
                 <h2>적립을 취소하시겠습니까?</h2>
                 <div class="pointBtn">
-                    <button v-on:click.prevent="closeModal(false)">취소</button>
-                    <button v-on:click.prevent="nextPage()">확인</button>
+                    <button v-on:click.prevent="closeModal()">취소</button>
+                    <button v-on:click.prevent="nextPage(1)">확인</button>
                 </div>
             </div>
         </div><!--no-point-modal-->
@@ -50,7 +50,7 @@
             <div class="modal-content">
                 <h2>{{ userVo.point }}포인트 적립되었습니다</h2>
                 <div class="pointOkBtn">
-                    <button v-on:click.prevent="nextPage()">확인</button>
+                    <button v-on:click.prevent="nextPage(2)">확인</button>
                 </div>
             </div>
         </div>
@@ -58,8 +58,8 @@
     </div>
 </template>
 <script>
-import '../../assets/css/attention.css'
-import '../../assets/css/payment.css'
+import '@/assets/css/main/attention.css'
+import '@/assets/css/payment/payment.css'
 import AppHeader from '@/components/AppPayHeader.vue'
 
 export default {
@@ -88,29 +88,29 @@ export default {
                 this.showSave = true;
             }
         },
-        closeModal(check) {  //적립취소-확인
+        closeModal() {  //적립취소-확인
             console.log("모달창닫기");
             this.showModal = false;//모달창 닫기
             this.showSave = false;
-
-            //chak가 true면 적립취소
-            if (check == true) {
-                this.noSave = false;    //적립취소확인
-            }
         },
-        nextPage() {
+        nextPage(no) {
             console.log("다음페이지");
             this.showModal = false;//모달창 닫기
             this.showSave = false;
-            this.$store.commit("setUserVo", this.userVo);
+            if(no == 1){    //적립취소
+                this.$store.commit("setUserVo", null)
+            } else if(no == 2){
+                this.$store.commit("setUserVo", this.userVo);
+            }
             console.log(this.$store.state.paymethod);
-            if(this.$store.state.paymethod == "card"){
+
+            if (this.$store.state.paymethod == "card") {
                 console.log("카드결제");
                 this.$router.push("/pays/card");
-            } else if(this.$store.state.paymethod == "cupon"){
+            } else if (this.$store.state.paymethod == "cupon") {
                 console.log("모바일쿠폰결제");
                 this.$router.push("/pays/mobile");
-            } else if(this.$store.state.paymethod == "pay"){
+            } else if (this.$store.state.paymethod == "pay") {
                 console.log("페이결제");
                 this.$router.push("/pays/others");
             }

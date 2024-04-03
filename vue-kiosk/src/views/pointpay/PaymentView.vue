@@ -38,8 +38,8 @@
     </div>
 </template>
 <script>
-import '@/assets/css/attention.css'
-import '@/assets/css/payment.css'
+import '@/assets/css/main/attention.css'
+import '@/assets/css/payment/payment.css'
 import AppHeader from '@/components/AppPayHeader.vue'
 
 export default {

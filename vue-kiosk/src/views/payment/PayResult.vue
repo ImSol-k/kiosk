@@ -49,7 +49,7 @@
                     </span><br><br>
                     <!-- finMsg -->
 
-                    <span v-if="this.$store.state.userVo.no != null" class="pointMsg">
+                    <span v-if="this.$store.state.userVo != null" class="pointMsg">
                         {{ this.$store.state.userVo.hp }}님 보유 포인트 : {{ this.outPoint }} 점
                     </span>
                     <!-- pointMsg -->
@@ -81,9 +81,9 @@
 </template>
 
 <script>
-import '@/assets/css/attention.css';
-import '@/assets/css/payend.css';
-import '@/assets/css/scrollbar.module.css'
+import '@/assets/css/main/attention.css';
+import '@/assets/css/payment/payend.css';
+import '@/assets/css/main/scrollbar.module.css'
 import AppPayHeader from '@/components/AppPayHeader.vue'
 import axios from 'axios';
 
@@ -142,9 +142,6 @@ export default {
         // 유저정보 가져오기
         getUserVo() {
             if (this.$store.state.userVo != null) {
-                // this.userVo.no = this.$store.state.userVo.no;
-                // this.userVo.hp = this.$store.state.userVo.hp;
-                // this.userVo.point = this.$store.state.userVo.point;
                 this.userVo = this.$store.state.userVo;
             } else {
                 this.$store.commit('setUserVo', { no: 0, hp: null, point: null });
@@ -174,42 +171,44 @@ export default {
         },
         timeStop() {
             clearInterval(this.polling);
-            this.$router.push('/'); // 시간이 0 이 되면 메인페이지로 이동
+            //this.$router.push('/'); // 시간이 0 이 되면 메인페이지로 이동
         },
         /////////////////////////////////////// 타이머 ///////////////////////////////////////
         updatePoint() {
             this.userVo = this.$store.state.userVo;
-            axios({
-                method: 'post',
-                url: 'http://localhost:9000/attention/kiosk/savepoint', //SpringBoot주소
-                headers: { "Content-Type": "application/json; charset=utf-8" },
-                data: this.userVo,
-                responseType: 'json'
-            }).then(response => {
-                console.log(response.data); //수신데이터
-                if (response.data.result == "success") {
-                    console.log("적립완료");
-                    //store에 보유포인트 저장
-                    this.$store.commit("setUserVo", response.data.apiData);
-                    console.log(this.$store.state.userVo);
-                    this.outPoint = this.$store.state.userVo.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                    
-                    this.billVo.userNo = this.$store.state.userVo.no,
-                    this.billVo.total = this.$store.state.total,
-                    this.billVo.point = this.$store.state.savePoint
+            if (this.userVo != null) {
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:9000/attention/kiosk/savepoint', //SpringBoot주소
+                    headers: { "Content-Type": "application/json; charset=utf-8" },
+                    data: this.userVo,
+                    responseType: 'json'
+                }).then(response => {
+                    console.log(response.data); //수신데이터
+                    if (response.data.result == "success") {
+                        console.log("적립완료");
+                        //store에 보유포인트 저장
+                        this.$store.commit("setUserVo", response.data.apiData);
+                        console.log(this.$store.state.userVo);
+                        this.outPoint = this.$store.state.userVo.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-                    this.getOrderNo(); // 데이터 넘기고 받기 
-                }
-            }).catch(error => {
-                console.log(error);
-            });
-            
+                        this.billVo.userNo = this.$store.state.userVo.no,
+                        this.billVo.total = this.$store.state.total,
+                        this.billVo.point = this.$store.state.savePoint
+
+                        this.getOrderNo(); // 데이터 넘기고 받기 
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
+            }
+
         }
     },
     created() {
         this.updatePoint();
         this.start(); // 타이머
-         
+
     }
 }
 </script>
