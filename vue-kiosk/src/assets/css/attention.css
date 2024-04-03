@@ -14,9 +14,11 @@ body{
     background-color: #fff;
     margin: 0 auto;
 }
-.mainViewContainer{
-    color: #000;
-    margin: 0 auto;
+.managerMenu{
+    margin-bottom: 580px;
+}
+.managerMenu .managerBtn{
+    width: 50px;
 }
 .mainBtn{
     text-align: center;
@@ -38,18 +40,7 @@ body{
 }
 
 /* 헤더 */
-header{
-    width: 100%;
-    height: 110px;
-    background-color: #31160B;
-    display: flex;
-    /* justify-content: space-between; */
-    align-items: center;
-    padding: 0 25px;
-}
-.menuHeader{
-    height: 183px;
-}
+
 header a.home{
     width: 8%;
     display: block;
@@ -59,7 +50,7 @@ header a.home{
 a.home img {
     width: 60px;
 }
-header ul{
+header>ul{
     display: flex;
     justify-content: space-between;
     padding: 30px 0 0 0;

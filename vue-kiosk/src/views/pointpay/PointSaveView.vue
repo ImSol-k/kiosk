@@ -60,7 +60,7 @@
 <script>
 import '../../assets/css/attention.css'
 import '../../assets/css/payment.css'
-import AppHeader from '../components/AppHeader.vue'
+import AppHeader from '@/components/AppPayHeader.vue'
 
 export default {
     name: "PointSaveView",
@@ -148,8 +148,7 @@ export default {
         },
         savePoint() {
             console.log("포인트 적립");
-            let pay = 4000;
-            this.userVo.point = pay * 0.01;
+            this.userVo.point = this.$store.state.total * 0.01;
             this.$store.commit("setSavePoint", this.userVo.point);
             if (this.noSave == true && this.userVo.hp.length != 13) {
                 console.log("길이가 짧습니다");

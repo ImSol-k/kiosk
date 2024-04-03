@@ -17,8 +17,8 @@
         <div class="mainBtn">   
             <div class="beforeTouch">화면을 터치해주세요</div>
             <div class="afterTouch">
-                <router-link to="/">매장</router-link>
-                <router-link to="/">포장</router-link>
+                <router-link to="/menu">매장</router-link>
+                <router-link to="/menu">포장</router-link>
             </div>
         </div>
         <!-- mainBtn -->

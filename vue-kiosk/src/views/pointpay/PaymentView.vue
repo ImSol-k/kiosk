@@ -25,7 +25,7 @@
                             <img src="../../assets/img/pay/kakaopay.png">
                             <p>다른결제수단</p>
                         </button>
-                        <button>
+                        <button v-on:click="goBack">
                             <img src="../../assets/img/pay/close.png" alt="">
                             <p>결제취소</p>
                         </button>
@@ -40,7 +40,7 @@
 <script>
 import '@/assets/css/attention.css'
 import '@/assets/css/payment.css'
-import AppHeader from '../components/AppHeader.vue'
+import AppHeader from '@/components/AppPayHeader.vue'
 
 export default {
     name: "PaymentView",
@@ -56,17 +56,13 @@ export default {
             console.log("결제방식: " + pay);
             this.$router.push("/pointsave");
             this.$store.commit("setPay", pay);
+        },
+        goBack(){
+            console.log("결제취소");
+            this.$router.push("/menu");
         }
     },
-    created() { 
-        let list = [
-                {no: 1, name: "아메리카노", count: 2, price: "3000"},
-                {no: 2, name: "라떼", count: 1, price: "3500"}
-            ]
-            
-        this.$store.commit("setCartList", list);
-        this.$store.commit("setTotal", 4000);
-    }
+    created() { }
 };
 </script>
 

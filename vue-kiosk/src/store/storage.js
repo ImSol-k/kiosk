@@ -38,7 +38,7 @@ export default createStore({
     //세션유지
     plugins: [
         createPersistedState({
-            paths: ['cartList','payMethod', 'userVo', 'savePoint']
+            paths: ['cartList','payMethod', 'userVo', 'savePoint','total']
 
         })
     ]

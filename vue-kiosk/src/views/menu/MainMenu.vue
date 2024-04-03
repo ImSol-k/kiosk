@@ -3,12 +3,12 @@
         <div class="wrap">
 
             <!-- ======== 카테고리 헤더 ======== -->
-            <header class="menuHeader">
+            <header class="menuheader">
                 <div class="headerBoxOne">
-                    <img src="@/assets/images/logo.png">
+                    <img src="@/assets/img/rogo/1.png">
                 </div>
                 <div class="headerBoxTwo">
-                    <a href="" class="home"><img src="@/assets/images/home_icon.png" alt=""></a>
+                    <router-link to="/" class="home"><img src="@/assets/images/home_icon.png" alt=""></router-link>
                     <ul>
                         <li v-on:click="bColorChange('커피', $event)"><a href="#">커피</a></li>
                         <li v-on:click="bColorChange('논커피', $event)"><a href="#">논커피</a></li>
@@ -25,11 +25,12 @@
                 <div class="menuContainer">
                     <div v-for="(row, i) in Math.ceil(productList.length / 3)" v-bind:key="i" class="row">
                         <ul class="menuBox">
-                            <li v-for="(productVo, i) in productList.slice(i * 3, (i + 1) * 3)" v-bind:key="i" class="col-md-4">
+                            <li v-for="(productVo, i) in productList.slice(i * 3, (i + 1) * 3)" v-bind:key="i"
+                                class="col-md-4">
                                 <div v-on:click="addCart(productVo.no)">
                                     <img v-bind:src="`http://localhost:9000/upload/${productVo.save_name}`">
-                                    <div><strong>{{productVo.name}}</strong></div>
-                                    <div><strong>{{numberWithCommas(productVo.price)}}</strong></div>
+                                    <div><strong>{{ productVo.name }}</strong></div>
+                                    <div><strong>{{ numberWithCommas(productVo.price) }}</strong></div>
                                 </div>
                             </li>
                         </ul>
@@ -56,7 +57,7 @@
                                         {{ cartVo.count }}
                                         <button v-on:click="plus(i)">+</button>
                                     </td>
-                                    <td>{{ numberWithCommas(cartVo.price *cartVo.count) }}</td>
+                                    <td>{{ numberWithCommas(cartVo.price * cartVo.count) }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,60 +71,61 @@
                 </div>
 
                 <!-- ======== 모달창 ======== -->
-                <div class="modal" v-bind:class="{'modal-on': isMaodal}">
+                <div class="modal" v-bind:class="{ 'modal-on': isMaodal }">
                     <div class="modal-content">
                         <div>
                             <div class="Modal-top">
                                 <div class="m-header">주문 정보</div>
                             </div>
-        
+
                             <div class="m-body">
                                 <table>
                                     <tbody>
                                         <tr v-for="(cartVo, i) in cartItems" v-bind:key="i">
-                                            <td>{{cartVo.name}}</td>
+                                            <td>{{ cartVo.name }}</td>
                                             <td>
                                                 <button v-on:click="minus(i)">-</button>
                                                 {{ cartVo.count }}
                                                 <button v-on:click="plus(i)">+</button>
                                             </td>
-                                            <td><button type="button" v-on:click="deleteCartVo(cartVo.no)">삭제</button></td>
+                                            <td><button type="button" v-on:click="deleteCartVo(cartVo.no)">삭제</button>
+                                            </td>
                                         </tr>
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
-        
+
                             <div class="m-footer">
                                 <p>총 금액 : &#8361;{{ numberWithCommas(totalAmount) }}원</p>
                                 <div class="btnBox">
                                     <button type="button" v-on:click="modalClose">돌아가기</button>
-                                    <button type="button" v-on:click="payment" >결제하기</button>
+                                    <button type="button" v-on:click="payment">결제하기</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-        
+
                 </div>
             </div><!--container끝-->
         </div><!--wrap 끝-->
 
     </div>
- </template>
- <script>
- import axios from 'axios'
- import '@/assets/css/mainmenu.css';
- import '@/assets/css/attention.css';
- import '@/assets/css/scrollbar.module.css';
+</template>
+<script>
+import axios from 'axios'
+import '@/assets/css/mainmenu.css';
+import '@/assets/css/menuheader.css';
+import '@/assets/css/scrollbar.module.css';
 
- export default {
+export default {
     name: "MainMenu",
     components: {
     },
     data() {
         return {
             // isMaodal:false
-            productList:[],
+            productList: [],
             cartItems: [],
             category: "커피",
             total: 0
@@ -134,7 +136,7 @@
         bColorChange(categoryName, event) {
             console.log(categoryName);
             this.category = categoryName;
-            
+
             const links = document.querySelectorAll("li a");
 
             // 반복하여 초기화 설정
@@ -155,16 +157,16 @@
 
         },
         //======== 첫화면 리스트 불러오기 ========
-        getList(){
+        getList() {
             axios({
-                method: 'get', 
+                method: 'get',
                 url: 'http://localhost:9000/attention/mainmenu',
-                headers: { "Content-Type": "application/json; charset=utf-8" }, 
-                params: {category: this.category}, 
-               
-                responseType: 'json' 
+                headers: { "Content-Type": "application/json; charset=utf-8" },
+                params: { category: this.category },
+
+                responseType: 'json'
             }).then(response => {
-                console.log(response); 
+                console.log(response);
                 console.log(response.data);
 
                 this.productList = response.data.apiData;
@@ -176,22 +178,22 @@
         },
 
         //======== 선택한 상품 장바구니에 담기 ========
-        addCart(no){
+        addCart(no) {
             console.log(no);
 
             const existingItem = this.cartItems.find(item => item.no === no);
-            if(existingItem){
+            if (existingItem) {
                 existingItem.count++;
-            }else{
+            } else {
                 axios({
-                    method: 'get', 
+                    method: 'get',
                     url: 'http://localhost:9000/attention/mainmenu/cart',
-                    headers: { "Content-Type": "application/json; charset=utf-8" }, 
-                    params: {no:no}, 
+                    headers: { "Content-Type": "application/json; charset=utf-8" },
+                    params: { no: no },
 
-                    responseType: 'json' 
+                    responseType: 'json'
                 }).then(response => {
-                    console.log(response); 
+                    console.log(response);
                     console.log(response.data.apiData);
 
                     let newItem = {
@@ -203,8 +205,8 @@
 
                     this.cartItems.push(newItem);
 
-                    console.log("cartItems"+this.cartItems);
-    
+                    console.log("cartItems" + this.cartItems);
+
                 }).catch(error => {
                     console.log(error);
                 });
@@ -213,19 +215,20 @@
         },
 
         //======== 장바구니 목록 vuew에 담기 ========
-        payment(){
+        payment() {
 
-            this.$store.commit("setCartList",this.cartItems);
-            this.$store.commit("setTotal",this.total);
+            this.$store.commit("setCartList", this.cartItems);
+            this.$store.commit("setTotal", this.total);
 
             console.log(this.$store.state.cartList);
             console.log(this.$store.state.cartList[0]);
             console.log(this.$store.state.cartList[0].name);
-        
+            this.$router.push("/payment");
+
         },
 
         //======== 리스트에서 한개 삭제하기 ========
-        deleteCartVo(no){ 
+        deleteCartVo(no) {
             const index = this.cartItems.findIndex(item => item.no === no);
 
             if (index !== -1) {
@@ -235,13 +238,13 @@
         },
 
         //======== 모달창 띄우기 ========
-        modalOpen(){
+        modalOpen() {
             // this.isMaodal= true
             document.querySelector('.modal').style.display = "block"
         },
 
         //======== 모달창 닫기 ========
-        modalClose(){
+        modalClose() {
             // this.isMaodal = false
             document.querySelector('.modal').style.display = "none"
         },
@@ -249,8 +252,8 @@
         //======== 빼기 버튼 ========
         minus(i) {
             if (this.cartItems[i].count > 1) {
-                    this.cartItems[i].count--;
-                }
+                this.cartItems[i].count--;
+            }
         },
 
         //======== 더하기 버튼 ========
@@ -273,16 +276,18 @@
         },
 
     },
-    watch:{
+    watch: {
         totalAmount(newTotal) {
             this.total = newTotal;
         }
     },
-    created(){
+    created() {
 
         //======== 전체 리스트 불러오기 ========
         this.getList();
-
+        if (this.$store.state.cartList != null) {
+            this.cartItems = this.$store.state.cartList;
+        }
     },
     mounted() {
 
@@ -296,8 +301,6 @@
 
     }
 
- };
+};
 </script>
- <style>
-
-</style>
+<style></style>

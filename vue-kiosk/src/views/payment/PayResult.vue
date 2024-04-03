@@ -174,7 +174,7 @@ export default {
         },
         timeStop() {
             clearInterval(this.polling);
-            //this.$router.push('/'); // 시간이 0 이 되면 메인페이지로 이동
+            this.$router.push('/'); // 시간이 0 이 되면 메인페이지로 이동
         },
         /////////////////////////////////////// 타이머 ///////////////////////////////////////
         updatePoint() {

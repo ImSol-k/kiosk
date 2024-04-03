@@ -1,6 +1,6 @@
 <template>
 <div class="pays-logo">
-    <img src="../assets/images/test2.png">
+    <img src="../assets/images/test2.png" v-on:click="goHome">
 </div>
 </template>
 
@@ -16,7 +16,9 @@ export default{
         };
     },
     methods : {
-
+        goHome(){
+            this.$router.push("/");
+        }
     },
     created (){
 
