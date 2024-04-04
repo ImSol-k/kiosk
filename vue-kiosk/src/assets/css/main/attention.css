@@ -13,6 +13,7 @@ body{
     height: 100vh;
     background-color: #fff;
     margin: 0 auto;
+    overflow: hidden;
 }
 .managerMenu{
     margin-bottom: 580px;

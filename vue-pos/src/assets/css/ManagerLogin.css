@@ -1,0 +1,48 @@
+form.loginBox{
+    width: 600px;
+    height: 250px;
+    background: #fff;
+    text-align: center;
+    border-radius: 10px;
+    border: 2px solid #2c2c2c;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+p {
+    font-size: 25px;
+    font-weight: bold;
+    color: #2c2c2c;
+    margin-top: 15px;
+}
+#pwInput {
+    width: 270px;
+    height: 45px;
+    margin: 40px;
+    border: 2px solid #FED900;
+    border-radius: 10px;
+}
+#pwInput::placeholder{
+    color: #2c2c2c;
+    font-weight: bold;
+}
+#pwInput:focus {
+    outline: none;
+}
+.loginBtn {
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    /* background: #9c6c36; */
+    color: #2c2c2c;
+    border: 2px solid #FED900;
+    border-radius: 10px;
+}
+.loginBtn:hover {
+    background: #FED900;
+    color: #2c2c2c;
+    font-weight: bold;
+}

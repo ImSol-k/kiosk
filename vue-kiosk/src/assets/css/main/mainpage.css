@@ -55,8 +55,9 @@
     font-family: 'yg-jalnan';
     text-align: center;
     line-height: 150px;
-    font-size: 80px;
+    font-size: 75px;
     padding-top: 20px;
+    cursor: default;
 }
 .mainBtn .afterTouch{
     padding-top: 20px;
@@ -66,7 +67,7 @@
 .mainBtn .afterTouch a{  /* 매장, 포장 버튼 */
     /* display: inline; */
     background-color: transparent;
-    /* -webkit-text-stroke: 4px #31160b; */
+    -webkit-text-stroke: 4px #31160b;
     /* border: 5px solid #31160b; */
     width: 300px;
     height: 100px;
@@ -88,7 +89,7 @@
 }
 
 .afterTouch a:hover{
-    color: #31160b;
+    color: #FED900;
 }
 /*************************************************************/
 /*************************************************************/

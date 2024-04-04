@@ -7,7 +7,7 @@
             <AppPayHeader />
             <!-- 로고부분 -->
 
-            <div class="card-box">
+            <div class="card-box resultContainer">
 
                 <img class="receiptImg" src="../../assets/images/receipt.png">
 
@@ -47,14 +47,15 @@
                     <span class="finMsg">
                         결제 금액 : {{ this.outPrice }} 원
                     </span><br><br>
+                    <!-- <hr cla> -->
                     <!-- finMsg -->
-
-                    <span v-if="this.$store.state.userVo != null" class="pointMsg">
-                        {{ this.$store.state.userVo.hp }}님 보유 포인트 : {{ this.outPoint }} 점
-                    </span>
-                    <!-- pointMsg -->
-
+                    
+                    
                 </div>
+                <div v-if="this.$store.state.userVo != null" class="pointMsg">
+                    {{ this.$store.state.userVo.hp }}님 보유 포인트 : <span>{{ this.outPoint }}</span> 점
+                </div>
+                <!-- pointMsg -->
                 <!-- payMsg -->
 
             </div>
@@ -63,11 +64,11 @@
             <div class="text-result">
 
                 <div class="timer">
-                    <span class="big">{{ timeCounter }}</span>초 후 처음화면으로 돌아갑니다.
+                    <span class="big">{{ timeCounter }}</span> 초 후 처음화면으로 돌아갑니다.
                 </div>
                 <!-- timer -->
 
-                <router-link class="goHome" to="/">처음화면으로 돌아가기</router-link>
+                <router-link class="goHome" to="/">처음화면으로</router-link>
 
             </div>
             <!-- text-result -->

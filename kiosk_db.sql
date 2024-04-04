@@ -28,13 +28,12 @@ CREATE TABLE users (
 
 -- 이미지테이블
 CREATE TABLE images (
-	product_no   int   not null,
+	product_no   int unique  not null,
 	org_name   varchar(500),
 	save_name   varchar(500),
-	file_path   varchar(500),
-	CONSTRAINT images_fk FOREIGN KEY (product_no)
-	REFERENCES product(no)
+	file_path   varchar(500)
 );
+drop table images;
 
 -- 영수증테이블
 CREATE TABLE bill (
@@ -53,9 +52,8 @@ CREATE TABLE sales (
 	product_no   int not null,
     order_no int not null,
 	count int not null,
-	CONSTRAINT sales_fk FOREIGN KEY (product_no)
-	REFERENCES product(no),
     constraint sales_fk2 foreign key (order_no)
     references bill(order_no)
 );
-
+ALTER TABLE product AUTO_INCREMENT=1;
+drop table sales;

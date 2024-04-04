@@ -15,7 +15,7 @@
         
         <!-- wrapper -->
         <div class="mainBtn">   
-            <div class="beforeTouch">화면을 터치해주세요</div>
+            <div class="beforeTouch"  v-on:click="footerMessage">화면을 터치해주세요</div>
             <div class="afterTouch">
                 <router-link to="/menu">매장</router-link>
                 <router-link to="/menu">포장</router-link>

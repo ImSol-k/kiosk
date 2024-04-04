@@ -8,6 +8,7 @@ import PayOthers from '@/views/payment/PayOthers.vue'
 import PayResult from '@/views/payment/PayResult.vue'
 import MainMenu from '@/views/menu/MainMenu.vue'
 
+
 const routes = [
   {
     path: '/',

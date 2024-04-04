@@ -29,6 +29,7 @@
                                 class="col-md-4">
                                 <div v-on:click="addCart(productVo.no)">
                                     <img v-bind:src="`http://localhost:9000/upload/${productVo.save_name}`">
+                                    
                                     <div><strong>{{ productVo.name }}</strong></div>
                                     <div><strong>{{ numberWithCommas(productVo.price) }}</strong></div>
                                 </div>

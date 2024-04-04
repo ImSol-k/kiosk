@@ -25,8 +25,9 @@
                             <img src="../../assets/img/pay/kakaopay.png">
                             <p>다른결제수단</p>
                         </button>
-                        <button v-on:click="goBack">
-                            <img src="../../assets/img/pay/close.png" alt="">
+                        <button v-on:click="goBack" v-on:mouseover="changeX" v-on:mouseleave="defaultX">
+                            <img class="firstX" src="../../assets/img/pay/close.png" alt="">
+                            <img class="secondX" src="../../assets/img/pay/close-wh.png" alt="">
                             <p>결제취소</p>
                         </button>
                     </div><!--mainPay-->
@@ -60,9 +61,28 @@ export default {
         goBack(){
             console.log("결제취소");
             this.$router.push("/menu");
+        },
+        changeX(){
+          let firstX=  document.querySelector('.firstX');
+          let secondX = document.querySelector('.secondX');
+
+          firstX.style.display="none";
+          secondX.style.display="block";
+          secondX.style.margin="0 auto";
+        },
+        defaultX(){
+         let firstX=  document.querySelector('.firstX');
+          let secondX = document.querySelector('.secondX');
+
+          firstX.style.display="block";
+          secondX.style.display="none";
+          firstX.style.margin="0 auto";
         }
     },
-    created() { }
+     mounted() { 
+        let secondX = document.querySelector('.secondX');
+        secondX.style.display="none"
+    }
 };
 </script>
 

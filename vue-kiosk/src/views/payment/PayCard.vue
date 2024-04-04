@@ -10,7 +10,7 @@
             <img class="creditCard" src="../../assets/images/creditcard.png" v-on:click="goResult"><br>
             <div class="text-card">
                 <div class="timer">
-                    <span class="big">{{ timeCounter }}</span>초 후 주문이 취소됩니다.<br>
+                    <span class="big">{{ timeCounter }}</span> 초 후 주문이 취소됩니다.<br>
                     <!-- 시간초가 지나갈동안 결제가 안되면 메인으로 돌아감 -->
                     <!-- 결제가 완료되면 payresult로 감 -->
                 </div>
@@ -20,9 +20,10 @@
                     {{ payMessage }}
                 </div>
                 <!-- cardMsg 안내메세지  -->
-
-                <router-link to="/payment" class="cancelBtn">뒤로 가기</router-link>
-                <router-link to="/" class="cancelBtn">주문 취소</router-link>
+                <div class="cancelBtnBox">
+                    <router-link to="/payment" class="cancelBtn">뒤로가기</router-link>
+                    <router-link to="/" class="cancelBtn">처음으로</router-link>
+                </div>
                 
             </div>
             <!-- text-card -->

@@ -11,20 +11,21 @@
             <div class="text-mobile">
                 
                 <div class="timer">
-                    <span class="big">{{ timeCounter }}</span>초 후 주문이 취소됩니다.<br>
+                    <span class="big">{{ timeCounter }}</span> 초 후 주문이 취소됩니다.<br>
                     <!-- 시간초가 지나갈동안 결제가 안되면 메인으로 돌아감 -->
                     <!-- 결제가 완료되면 payresult로 감 -->
                 </div>
                 <!-- timer --> 
 
-                <div>
+                <div class="cardMsg">
                     {{ payMessage }}
                 </div>
                 <!-- payMessage -->
-
-                <router-link to="/payment" class="cancelBtn">뒤로 가기</router-link>
-                <router-link to="/" class="cancelBtn">주문 취소</router-link>
-
+                <div class="cancelBtnBox">
+                    <router-link to="/payment" class="cancelBtn">뒤로 가기</router-link>
+                    <router-link to="/" class="cancelBtn">주문 취소</router-link>
+                </div>
+                
             </div>
             <!-- text-mobile -->
 
