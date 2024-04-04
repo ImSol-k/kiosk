@@ -15,7 +15,14 @@
 .listBox h1{
     margin-bottom: 20px;
 }
-
+.listBoxTitle{
+    display: flex;
+    justify-content: space-between;
+    width: 996px;
+}
+.listBoxTitle>select{
+    width: 180px;
+}
 
 .ManagerMainHeader ul li:first-child a {
     background-color: white;
@@ -47,10 +54,13 @@
 .listBox table td {
     padding: 10px 0;
     border-top: 1px dotted #9d9bbb;
-    padding: 10px;
+    padding: 10px 0;
 }
 .listBox table td:last-child {
     border-bottom: none;
+}
+.listBoxTitle>h1{
+    cursor: pointer;
 }
 
 .modifyBtn {
@@ -109,7 +119,16 @@
     font-size: 16px;
     margin-left: 20px;
     border: 2px solid #5e2d1a;
+    border-radius: 10px;
     font-size: 20px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+.categoryName{
+    width: 220px;
+}
+.categoryPrice{
+    width: 100px;
 }
 .category option{
     padding:5px 0;
@@ -128,7 +147,6 @@
     font-size: 17px;
     font-weight: bold;
     border: none;
-    cursor: pointer;
 }
 
 .submitBtn:hover {
@@ -171,13 +189,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 10px;
+    border-radius: 20px;
+    padding: 30px;
 }
-
+.imgModal h1{
+    margin-bottom: 30px;
+}
 .imgModal .closeBtn {
     position: absolute;
-    top: 10px;
-    right: 0px;
+    top: 28px;
+    right: 15px;
     cursor: pointer;
 }
 
@@ -187,21 +208,37 @@
 
 .imgModal span:nth-of-type(1),
 .imgModal span:nth-of-type(3) {
-    font-size: 17px;
+    font-size: 25px;
     font-weight: bold;
 }
 
 .imgModal span:nth-of-type(2),
 .imgModal span:nth-of-type(4) {
-    padding: 5px 10px;
-    border: 3px solid #FED900;
-    border-radius: 10px;
+    /* padding: 5px 5px; */
+    /* border: 3px solid #FED900; */
+    font-size: 20px;
+    border-radius: 8px;
 }
 
 .imgModal form {
-    margin-top: 50px;
+    margin-top: 35px;
 }
 
 .imgModal form div {
-    margin-top: 50px;
+    margin-top: 40px;
+}
+
+.modalModifyBtn{
+    width: 120px;
+    height: 60px;
+    border-radius: 10px;
+    border: none;
+    background-color: #FED900;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modalModifyBtn:hover{
+    background-color: #5e2d1a;
+    color: #fff;
 }

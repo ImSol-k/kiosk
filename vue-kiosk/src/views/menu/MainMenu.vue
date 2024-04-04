@@ -45,6 +45,7 @@
                         <table>
                             <thead>
                                 <tr>
+                                    <!-- <th>삭제</th> -->
                                     <th>항목</th>
                                     <th>수량</th>
                                     <th>금액</th>
@@ -52,7 +53,8 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(cartVo, i) in cartItems" v-bind:key="i">
-                                    <td>{{ cartVo.name }}</td>
+                                    
+                                    <td><div class="cartDelBtn" v-on:click="cartDelBtn(cartVo.no)">x</div>{{ cartVo.name }}</td>
                                     <td>
                                         <button v-on:click="minus(i)">-</button>
                                         {{ cartVo.count }}
@@ -72,9 +74,9 @@
                 </div>
 
                 <!-- ======== 모달창 ======== -->
-                <div class="modal" v-bind:class="{ 'modal-on': isMaodal }">
+                <div class="modal"  v-bind:class="{ 'modal-on': isMaodal }">
                     <div class="modal-content">
-                        <div>
+                        <div class="modal-relative">
                             <div class="Modal-top">
                                 <div class="m-header">주문 정보</div>
                             </div>
@@ -101,10 +103,19 @@
                                 <p>총 금액 : &#8361;{{ numberWithCommas(totalAmount) }}원</p>
                                 <div class="btnBox">
                                     <button type="button" v-on:click="modalClose">돌아가기</button>
-                                    <button type="button" v-on:click="payment">결제하기</button>
+                                    <button v-if="cartItems.length != 0" type="button" v-on:click="payment">결제하기</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                </div>
+
+                <!-- ======== 모달창2 ======== -->
+                <div class="modal" id="modal2" v-bind:class="{ 'modal-on': isMaodal }">
+                    <div class="modal-content">
+                        <h1>상품을 선택해주세요</h1>
+                        <button v-on:click="modalClose">확인</button>
                     </div>
 
                 </div>
@@ -217,7 +228,6 @@ export default {
 
         //======== 장바구니 목록 vuew에 담기 ========
         payment() {
-
             this.$store.commit("setCartList", this.cartItems);
             this.$store.commit("setTotal", this.total);
 
@@ -227,7 +237,14 @@ export default {
             this.$router.push("/payment");
 
         },
+        //======== 장바구니에서 x누르면 삭제하기 ========
+        cartDelBtn(no){
+            // let a = document.querySelector('.cartDelBtn');
+            const index = this.cartItems.findIndex(item => item.no === no);
 
+            this.cartItems.splice(index, 1);
+
+        },
         //======== 리스트에서 한개 삭제하기 ========
         deleteCartVo(no) {
             const index = this.cartItems.findIndex(item => item.no === no);
@@ -241,13 +258,21 @@ export default {
         //======== 모달창 띄우기 ========
         modalOpen() {
             // this.isMaodal= true
-            document.querySelector('.modal').style.display = "block"
+            if(this.cartItems.length != 0){
+                document.querySelector('.modal').style.display = "block"
+
+                
+            }else{
+                document.querySelector('#modal2').style.display = "block"
+
+            }
         },
 
         //======== 모달창 닫기 ========
         modalClose() {
             // this.isMaodal = false
             document.querySelector('.modal').style.display = "none"
+            document.querySelector('#modal2').style.display = "none"
         },
 
         //======== 빼기 버튼 ========

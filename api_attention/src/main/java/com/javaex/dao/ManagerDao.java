@@ -43,6 +43,12 @@ public class ManagerDao {
 		return pList;
 	}
 	
+	public List<ProductVo> selectCategory(String category){
+		System.out.println("ManagerDao.selectCategory()");
+		List<ProductVo> categoryList = sqlSession.selectList("pos.selectCategory", category);
+		return categoryList;
+	}
+	
 	//삭제
 	public int menuDelete(int no) {
 		System.out.println("ManagerDao.menuDelete()");
@@ -56,6 +62,20 @@ public class ManagerDao {
 		System.out.println(no);
 		int count = sqlSession.delete("pos.deleteImg", no);
 		return count;
+	}
+	
+	//이미지 등록되어있나 확인
+	public ImageVo imgSelect(int no) {
+		System.out.println("ManagerDao.imgSelect()");
+		ImageVo imgVo = sqlSession.selectOne("pos.selectImg", no);
+		return imgVo;
+	}
+	
+	public int imgUpdate(ImageVo imageVo) {
+		System.out.println("ManagerDao.imgUpdate()");
+		System.out.println("Update: " + imageVo);
+		sqlSession.update("pos.updateImg", imageVo);
+		return 0;
 	}
 
 }

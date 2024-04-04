@@ -31,6 +31,13 @@
 	]]>
 	</select>
 	
+	<select id="selectCategory" parameterType="string" resultType="com.javaex.vo.ProductVo">
+	<![CDATA[
+		select no, category, name, price 
+		from product where category = #{category}
+	]]>
+	</select>
+	
 	<delete id="deleteMenu" parameterType="int">
 	<![CDATA[
 		delete from product
@@ -44,5 +51,22 @@
 		where product_no = #{no}
 	]]>
 	</delete>
+	
+	<select id="selectImg" parameterType="int" resultType="com.javaex.vo.ImageVo">
+	<![CDATA[
+		select product_no
+		from images where product_no = #{no}
+	]]>
+	</select>
+	
+	<update id="updateImg">
+	<![CDATA[
+	update images
+		set org_name = #{orgName},
+		save_name = #{saveName},
+    	file_path = #{filePath}
+	where product_no = #{productNo}
+	]]>
+	</update>
 
 </mapper>

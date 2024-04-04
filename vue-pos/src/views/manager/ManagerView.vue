@@ -1,7 +1,7 @@
 <template>
     <div class="wrap">
         <header class="ManagerMainHeader">
-            <router-link to="/setting" class="home"><img src="@/assets/images/home_icon.png">
+            <router-link to="/manager/loginform" class="home"><img src="@/assets/images/home_icon.png">
             </router-link>
             <router-link to="/setting" class="logoImg"><img src="@/assets/images/attention.png"></router-link>
             <ul>
@@ -18,7 +18,7 @@
             <form v-on:submit.prevent="menuInsert" class="insertMenuBox" action="">
                 <div class="categoryBox">
                     <select v-model="productVo.category" class="category" id="category">
-                        <option disabled >카테고리선택</option>
+                        <option disabled value="">카테고리선택</option>
                         <option>커피</option>
                         <option>논커피</option>
                         <option>밀크쉐이크</option>
@@ -40,7 +40,18 @@
             </form>
 
             <div class="listBox">
-                <h1>메뉴 리스트</h1>
+                <div class="listBoxTitle">
+
+                    <h1 v-on:click.prevent="getList('all')">메뉴 리스트</h1>
+                    <select v-model="productVo.category" v-on:click="getList()" class="category" id="category">
+                        <option>전체카테고리</option>
+                        <option>커피</option>
+                        <option>논커피</option>
+                        <option>밀크쉐이크</option>
+                        <option>스무디/프라페</option>
+                        <option>디저트</option>
+                    </select>
+                </div>
                 <div>
                     <table>
                         <colgroup>
@@ -93,8 +104,10 @@
                                         <option>디저트</option>
                                     </select>
                                 </td>
-                                <td><input type="text" name="name" id="" v-model="productVo.name"></td>
-                                <td><input type="text" name="price" id="" v-model="productVo.price"></td>
+                                <td><input class="category categoryName" type="text" name="name" id=""
+                                        v-model="productVo.name"></td>
+                                <td><input class="category categoryPrice" type="text" name="price" id=""
+                                        v-model="productVo.price"></td>
                                 <td>
                                     <button></button>
                                 </td>
@@ -119,10 +132,11 @@
             <h1>이미지 등록</h1>
 
             <div class="textbox">
-                <span>제품번호</span>
-                <span>{{ productVo.no }}</span>
+                <!-- <span>제품번호</span>
+                <span>{{ productVo.no }}</span> -->
 
-                <span>제품명</span>
+
+                <span>제품명 :</span>
                 <span>{{ productVo.name }}</span>
             </div>
 
@@ -130,7 +144,7 @@
                 <input type="hidden" name="no" id="" v-model="productVo.no">
                 <input v-on:change="selectFile" type="file" name="file" id="">
                 <div>
-                    <button type="submit" class="modifyBtn">등록</button>
+                    <button type="submit" class="modifyBtn modalModifyBtn">등 록</button>
                 </div>
             </form>
         </div>
@@ -152,7 +166,8 @@ export default {
                 no: "",
                 name: "",
                 price: "",
-                category: ""
+                category: "",
+
             },
             modalOpen: false,
             modifyNo: ""
@@ -162,19 +177,20 @@ export default {
         numberWithCommas(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         },
-        getList() {
-            console.log("리스트 불러오기");
-
+        getList(cate) {
+            console.log("카테고리리스트: " + this.productVo.category);
+            if(cate === "all"){
+                this.productVo.category = "";
+            }
             axios({
-                method: 'get', // put, post, delete
-                url: 'http://localhost:9000/attention/managers/list',
+                method: 'post', // put, post, delete
+                url: 'http://localhost:9000/attention/managers/categorylist',
                 headers: { "Content-Type": "application/json; charset=utf-8" }, //전송타입
-                //params: guestbookVo, //get방식 파라미터로 값이 전달
-                //data: guestbookVo, //put, post, delete 방식 자동으로 JSON으로 변환 전달
+                params: {category: this.productVo.category}, //get방식 파라미터로 값이 전달
                 responseType: 'json' //수신타입
             }).then(response => {
                 console.log(response.data); //수신데이타
-                this.menuList = response.data;
+                this.menuList = response.data.apiData;
 
             }).catch(error => {
                 console.log(error);
@@ -261,6 +277,7 @@ export default {
             let formData = new FormData();
             formData.append("file", this.file);
             formData.append("no", this.productVo.no);
+
             // data로 보낸다(json 방식이 아님)
 
             axios({
@@ -274,16 +291,16 @@ export default {
                 console.log(response.data.apiData); //수신데이타
                 console.log(response.data); //수신데이타
 
-                let saveName =response.data.apiData;
-                this.$router.push({query:{saveName : saveName}});
 
                 alert("이미지 등록에 성공했습니다");
 
                 this.modalOpen = false;
                 this.productVo.name = "";
+
             }).catch(error => {
                 console.log(error);
             });
+
         },
         modifyMenu(no) {
             console.log("수정버튼");
@@ -297,7 +314,8 @@ export default {
         }
     },
     created() {
-        this.getList();
+        //this.getList();
+        this.getList()
     }
 };
 </script>
