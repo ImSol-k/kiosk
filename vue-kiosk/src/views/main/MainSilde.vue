@@ -17,8 +17,8 @@
         <div class="mainBtn">   
             <div class="beforeTouch"  v-on:click="footerMessage">화면을 터치해주세요</div>
             <div class="afterTouch">
-                <router-link to="/menu">매장</router-link>
-                <router-link to="/menu">포장</router-link>
+                <router-link to="/menu" v-model="매장">매장</router-link>
+                <router-link to="/menu" v-model="포장">포장</router-link>
             </div>
         </div>
         <!-- mainBtn -->
@@ -49,6 +49,7 @@ export default defineComponent({
 	data() {
 		return {
 			slides: [slide01, slide02, slide03, slide04],
+            order: ""
 		};
 	},
     methods: {
@@ -58,6 +59,7 @@ export default defineComponent({
             let afterTouch = document.querySelector(".afterTouch");
             beforeTouch.style.display = "none";
             afterTouch.style.display="block";
+            this.$store.commit('setOrder', this.order);
         }
         
     },
@@ -66,6 +68,7 @@ export default defineComponent({
         this.$store.commit('setPay', null); // 결제 방법 비우기
         this.$store.commit('setUserVo', null); // 적립한 사람의 정보 지우기
         this.$store.commit('setSavePoint',null); // 적립된 포인트 정보 지우기
+        
     }
 });
 </script>

@@ -13,7 +13,7 @@
                     <div class="mainPay">
                         <button v-on:click.prevent="paySave('card')">
                             <img src="../../assets/img/payment/card.png">
-                            <p>카드/삼성페이</p>
+                            <p>신용/체크카드</p>
                         </button>
                         <button v-on:click.prevent="paySave('cupon')">
                             <img src="../../assets/img/payment/mobale.png">

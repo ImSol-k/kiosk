@@ -97,7 +97,7 @@ public class ManagerService {
 		ImageVo imageVo = new ImageVo(no, orgName, saveName, filePath);
 
 		ImageVo pVo = managerDao.imgSelect(no);
-		System.out.println("imgNo: " + pVo);
+		System.out.println("pVo: " + pVo);
 		if (pVo == null) {
 			// db에 저장
 			// System.out.println("..........DB저장완료");

@@ -35,8 +35,8 @@
                 </div>
                 <!-- timer -->
                 <div class="cancelBtnBox">
-                    <router-link to="/payment" class="cancelBtn">뒤로 가기</router-link>
-                    <router-link to="/" class="cancelBtn">주문 취소</router-link>
+                    <router-link to="/payment" class="cancelBtn">뒤로가기</router-link>
+                    <router-link to="/" class="cancelBtn">주문취소</router-link>
                 </div>
             </div>
             <!-- text-others -->

@@ -35,17 +35,16 @@ CREATE TABLE images (
 );
 drop table images;
 
+drop table bill;
 -- 영수증테이블
 CREATE TABLE bill (
 	order_no int auto_increment primary key,
     order_date date not null,
     total int not null,
     user_no int,
-    point int,
-    constraint bill_fk foreign key (user_no)
-    references users (no)
+    point int
 );
-
+drop table sales;
 -- 매출테이블
 CREATE TABLE sales (
 	sales_no int auto_increment primary key,

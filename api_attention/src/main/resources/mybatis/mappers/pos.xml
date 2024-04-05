@@ -59,7 +59,7 @@
 	]]>
 	</select>
 	
-	<update id="updateImg">
+	<update id="updateImg" parameterType="com.javaex.vo.ImageVo">
 	<![CDATA[
 	update images
 		set org_name = #{orgName},

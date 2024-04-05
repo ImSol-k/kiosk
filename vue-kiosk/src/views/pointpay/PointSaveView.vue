@@ -98,7 +98,11 @@ export default {
             this.showModal = false;//모달창 닫기
             this.showSave = false;
             if(no == 1){    //적립취소
-                this.$store.commit("setUserVo", null)
+                let uVo = {
+                    no : 1,
+                    point : 0
+                }
+                this.$store.commit("setUserVo", uVo)
             } else if(no == 2){
                 this.$store.commit("setUserVo", this.userVo);
             }

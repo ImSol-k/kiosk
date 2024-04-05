@@ -12,7 +12,8 @@ export default createStore({
                 no: ""  
             },
             savePoint: "",
-            total: ""
+            total: "",
+            order: ""
         };
     },
 
@@ -32,6 +33,9 @@ export default createStore({
         },
         setTotal(state, total){
             state.total = total
+        },
+        setOrder(state, order){
+            state.order = order
         }
     },
     //vuex-persistedstate

@@ -43,8 +43,8 @@
                 <div class="listBoxTitle">
 
                     <h1 v-on:click.prevent="getList('all')">메뉴 리스트</h1>
-                    <select v-model="productVo.category" v-on:click="getList()" class="category" id="category">
-                        <option>전체카테고리</option>
+                    <select v-model="listCate" v-on:click="getList()" class="category" id="category">
+                        <option value="">전체카테고리</option>
                         <option>커피</option>
                         <option>논커피</option>
                         <option>밀크쉐이크</option>
@@ -170,7 +170,8 @@ export default {
 
             },
             modalOpen: false,
-            modifyNo: ""
+            modifyNo: "",
+            listCate: ""
         };
     },
     methods: {
@@ -178,15 +179,15 @@ export default {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         },
         getList(cate) {
-            console.log("카테고리리스트: " + this.productVo.category);
+            console.log("카테고리리스트: " + this.listCate);
             if(cate === "all"){
-                this.productVo.category = "";
+                this.listCate = "";
             }
             axios({
                 method: 'post', // put, post, delete
                 url: 'http://localhost:9000/attention/managers/categorylist',
                 headers: { "Content-Type": "application/json; charset=utf-8" }, //전송타입
-                params: {category: this.productVo.category}, //get방식 파라미터로 값이 전달
+                params: {category: this.listCate}, //get방식 파라미터로 값이 전달
                 responseType: 'json' //수신타입
             }).then(response => {
                 console.log(response.data); //수신데이타

@@ -18,9 +18,8 @@ public class ManagerDao {
 	//사진 등록
 	public int insertImg(ImageVo imageVo) {
 		System.out.println("AttachDao.insertImg()");
-		
+		System.out.println(imageVo);
 		int count = sqlSession.insert("pos.insertImg", imageVo);
-		
 		return count;
 	}
 	
@@ -74,7 +73,6 @@ public class ManagerDao {
 	public int imgUpdate(ImageVo imageVo) {
 		System.out.println("ManagerDao.imgUpdate()");
 		System.out.println("Update: " + imageVo);
-		sqlSession.update("pos.updateImg", imageVo);
 		return 0;
 	}
 

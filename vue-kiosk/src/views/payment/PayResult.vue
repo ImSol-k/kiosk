@@ -13,7 +13,6 @@
 
                 <div class="receiptList">
                     <p>주문 완료 (주문 번호 : {{ orderNo }} <!--가져와야함--> )</p>
-
                     <div class="order-receipt">
                         <table class="orderList">
                             <colgroup>
@@ -49,10 +48,10 @@
                     </span><br><br>
                     <!-- <hr cla> -->
                     <!-- finMsg -->
-                    
-                    
+
+
                 </div>
-                <div v-if="this.$store.state.userVo != null" class="pointMsg">
+                <div v-if="this.$store.state.userVo.no != 1" class="pointMsg">
                     {{ this.$store.state.userVo.hp }}님 보유 포인트 : <span>{{ this.outPoint }}</span> 점
                 </div>
                 <!-- pointMsg -->
@@ -106,9 +105,10 @@ export default {
 
             billVo: { // db 에서 bill 테이블에 넣을 데이터
                 userNo: "",
-                total: "",
+                total: this.$store.state.total,
                 point: ""
-            }
+            },
+            order: this.$store.state.order
         };
     },
 
@@ -118,9 +118,12 @@ export default {
         getOrderNo() {  // 결제완료되면 결제완료 페이지로 이동되고 데이터를 보내서 등록,
             console.log("결제완료");
             // 주문번호를 받아와서 화면에 표시 
+            // sales 테이블에 등록할 데이터
+
             let data = {};
             data.billVo = this.billVo;      // bill 테이블에 등록할 데이터
-            data.list = this.cartList;     // sales 테이블에 등록할 데이터
+            data.list = this.cartList;
+
 
             axios({
                 method: 'post', // put, post, delete
@@ -140,16 +143,6 @@ export default {
             });
         },
 
-        // 유저정보 가져오기
-        getUserVo() {
-            if (this.$store.state.userVo != null) {
-                this.userVo = this.$store.state.userVo;
-            } else {
-                this.$store.commit('setUserVo', { no: 0, hp: null, point: null });
-            }
-        },
-        /////////////////////////////////////// 타이머 ///////////////////////////////////////
-        // 타이머 data에 timeCounter : 초 , restTimeData : "" 작성
         start() {
             // 1초에 한번씩 start 호출
             this.polling = setInterval(() => {
@@ -176,8 +169,10 @@ export default {
         },
         /////////////////////////////////////// 타이머 ///////////////////////////////////////
         updatePoint() {
+            console.log("포인트ㅔㅔㅔㅔㅔㅔㅔㅔㅔㅔ")
+
             this.userVo = this.$store.state.userVo;
-            if (this.userVo != null) {
+            if (this.userVo.no != 1) {
                 axios({
                     method: 'post',
                     url: 'http://localhost:9000/attention/kiosk/savepoint', //SpringBoot주소
@@ -194,22 +189,23 @@ export default {
                         this.outPoint = this.$store.state.userVo.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
                         this.billVo.userNo = this.$store.state.userVo.no,
-                        this.billVo.total = this.$store.state.total,
-                        this.billVo.point = this.$store.state.savePoint
+                            this.billVo.total = this.$store.state.total,
+                            this.billVo.point = this.$store.state.savePoint
 
-                        this.getOrderNo(); // 데이터 넘기고 받기 
                     }
+                    
                 }).catch(error => {
                     console.log(error);
                 });
-            }
 
+            }
+            this.getOrderNo(); // 데이터 넘기고 받기 
         }
     },
     created() {
         this.updatePoint();
         this.start(); // 타이머
-
+        
     }
 }
 </script>
